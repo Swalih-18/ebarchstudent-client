@@ -1,13 +1,11 @@
 import React from 'react';
-import Image from 'next/image';
 import { Book } from '@/types';
-import DownloadButton from './components/DownloadButton';
+import BookContent from './components/BookContent';
 
 const SingleBookPage = async ({ params }: { params: Promise<{ bookId: string }> }) => {
-    const { bookId } = await params; 
-    console.log('params', { bookId });
-
+    const { bookId } = await params;
     let book: Book | null = null;
+
     try {
         const response = await fetch(`${process.env.BACKEND_URL}/books/${bookId}`, {
             next: {
@@ -15,13 +13,11 @@ const SingleBookPage = async ({ params }: { params: Promise<{ bookId: string }> 
             },
         });
         if (!response.ok) {
-            console.error('Response not okay:', response.statusText); 
-            console.error('Response body:', await response.text()); 
             throw new Error(`Error fetching book: ${response.statusText}`);
         }
         book = await response.json();
     } catch (err: any) {
-        console.error(err); // Log the actual error
+        console.error(err);
         throw new Error('Error fetching book');
     }
 
@@ -29,27 +25,7 @@ const SingleBookPage = async ({ params }: { params: Promise<{ bookId: string }> 
         throw new Error('Book not found');
     }
 
-    return (
-        <div className="mx-auto grid max-w-6xl grid-cols-3 gap-10 px-5 py-10">
-            <div className="col-span-2 pr-16 text-primary-950">
-                <h2 className="mb-5 text-5xl font-bold leading-[1.1]">{book.title}</h2>
-                <span className="font-semibold">by {book.authorName}</span>
-                <p className="mt-5 text-lg leading-8">{book.description}</p>
-                <DownloadButton fileLink={book.file} />
-            </div>
-            <div className="flex justify-end">
-                <Image
-                    src={book.coverImage}
-                    alt={book.title}
-                    className="rounded-md border"
-                    height={0}
-                    width={0}
-                    sizes="100vw"
-                    style={{ width: 'auto', height: 'auto' }}
-                />
-            </div>
-        </div>
-    );
+    return <BookContent book={book} />;
 };
 
 export default SingleBookPage;

@@ -1,4 +1,5 @@
 'use client';
+import { Button } from '@/components/ui/button';
 import React from 'react';
 
 const DownloadButton = ({ fileLink }: { fileLink: string }) => {
@@ -7,11 +8,13 @@ const DownloadButton = ({ fileLink }: { fileLink: string }) => {
     };
 
     return (
-        <button
+        <Button
             onClick={handleDownload}
-            className="mt-10 h-10 rounded-md bg-primary-500 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-primary-600 active:bg-primary-700">
+            variant={'outline'}
+            className="w-full md:w-auto"
+           >
             Download the book
-        </button>
+        </Button>
     );
 };
 
