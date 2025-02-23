@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 interface StarProps {
@@ -27,13 +27,6 @@ const Star: React.FC<StarProps> = ({ x, y, size, opacity }) => (
 const Banner = () => {
   const [stars, setStars] = useState<StarProps[]>([]);
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   useEffect(() => {
     const newStars = Array.from({ length: 100 }, () => ({
@@ -50,15 +43,15 @@ const Banner = () => {
       ref={ref}
       className="relative min-h-[80vh] w-full flex items-center justify-center overflow-hidden"
     >
-      {/* Parallax Background */}
+      {/* Background */}
       <div className="absolute inset-0">
-        <motion.div style={{ y, opacity }} className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-purple-900" />
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-900" />
           {stars.map((star, index) => (
             <Star key={index} {...star} />
           ))}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-        </motion.div>
+        </div>
       </div>
 
       {/* Floating Elements */}
