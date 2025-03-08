@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter
+
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
@@ -25,6 +27,8 @@ const Star: React.FC<StarProps> = ({ x, y, size, opacity }) => (
 );
 
 const Banner = () => {
+  const router = useRouter(); // Initialize router
+
   const [stars, setStars] = useState<StarProps[]>([]);
   const ref = useRef(null);
 
@@ -100,6 +104,18 @@ const Banner = () => {
           </p>
 
           <motion.button
+            onClick={() => { // Add click handler
+              const bookSection = document.getElementById('book-cards');
+              const paperSection = document.getElementById('researchpaper-cards'); // Assuming the book cards section has this ID
+              if (bookSection) {
+                bookSection.scrollIntoView({ behavior: 'smooth' }); // Scroll to book cards section
+              }else{
+                if (paperSection) {
+                  paperSection.scrollIntoView({ behavior: 'smooth' }); // Scroll to research paper cards section
+                }
+              }
+            }}
+
             className="group relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-medium text-white rounded-lg shadow-2xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

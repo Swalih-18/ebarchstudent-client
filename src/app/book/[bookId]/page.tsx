@@ -9,7 +9,7 @@ const SingleBookPage = async ({ params }: { params: Promise<{ bookId: string }> 
     try {
         const response = await fetch(`${process.env.BACKEND_URL}/books/${bookId}`, {
             next: {
-                revalidate: 3600,
+                revalidate: 5,
             },
         });
         if (!response.ok) {

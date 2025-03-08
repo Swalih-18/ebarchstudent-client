@@ -15,7 +15,7 @@ const SingleResearchpaperPage = async ({
       `${process.env.BACKEND_URL}/researchpapers/${rpId}`,
       {
         next: {
-          revalidate: 3600,
+          revalidate: 5,
         },
       }
     );

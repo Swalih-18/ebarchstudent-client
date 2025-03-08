@@ -1,23 +1,26 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { Book } from '@/types';
-import DownloadButton from './DownloadButton';
-
-
+import React, { useState } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { Book } from "@/types";
+import DownloadButton from "./DownloadButton";
+import { Button } from "@/components/ui/button";
+import { AlertTriangle } from "lucide-react";
+import ReportForm from "@/components/ReportForm";
 
 interface BookContentProps {
   book: Book;
 }
 
 const BookContent = ({ book }: BookContentProps) => {
+  const [showReportForm, setShowReportForm] = useState(false);
+
   return (
     <div className="relative min-h-screen bg-black text-gray-100">
       <div className="mx-auto max-w-7xl px-4 pt-32 pb-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
-          <motion.div 
+          <motion.div
             className="md:col-span-4 lg:col-span-3"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -37,19 +40,19 @@ const BookContent = ({ book }: BookContentProps) => {
 
           <div className="flex flex-col space-y-6 md:col-span-8 lg:col-span-9">
             <div className="space-y-4">
-              <motion.h1 
+              <motion.h1
                 className="bg-gradient-to-r from-gray-500 to-white bg-clip-text text-4xl font-bold text-transparent md:text-5xl lg:text-6xl"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ 
+                transition={{
                   duration: 0.8,
                   type: "spring",
-                  stiffness: 100 
+                  stiffness: 100,
                 }}
               >
                 {book.title}
               </motion.h1>
-              <motion.p 
+              <motion.p
                 className="text-xl italic text-gray-400"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -59,7 +62,7 @@ const BookContent = ({ book }: BookContentProps) => {
               </motion.p>
             </div>
 
-            <motion.div 
+            <motion.div
               className="prose prose-invert max-w-none"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -70,17 +73,34 @@ const BookContent = ({ book }: BookContentProps) => {
               </p>
             </motion.div>
 
-            <motion.div 
-              className="mt-8"
+            <motion.div
+              className="mt-8 flex space-x-4 items-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.6 }}
             >
               <DownloadButton fileLink={book.file} />
+              <Button 
+                variant="outline" 
+                className="bg-transparent border-red-500 hover:bg-red-900/20 text-red-500"
+                onClick={() => setShowReportForm(true)}
+              >
+                <AlertTriangle className="mr-2 h-4 w-4" />
+                Report
+              </Button>
             </motion.div>
           </div>
         </div>
       </div>
+      
+      {showReportForm && (
+        <ReportForm 
+          contentId={book._id} 
+          contentTitle={book.title}
+          contentType="book"
+          onClose={() => setShowReportForm(false)}
+        />
+      )}
     </div>
   );
 };

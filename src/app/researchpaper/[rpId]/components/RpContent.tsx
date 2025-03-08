@@ -1,16 +1,21 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Researchpaper } from '@/types';
 import DownloadButton from './DownloadButton';
+import { Button } from "@/components/ui/button";
+import { AlertTriangle } from "lucide-react";
+import ReportForm from "@/components/ReportForm";
 
 interface ResearchpaperContentProps {
   researchpaper: Researchpaper;
 }
 
 const ResearchpaperContent = ({ researchpaper }: ResearchpaperContentProps) => {
+  const [showReportForm, setShowReportForm] = useState(false);
+
   return (
     <div className="relative min-h-screen bg-black text-gray-100">
       <div className="mx-auto max-w-7xl px-4 pt-32 pb-16">
@@ -69,16 +74,33 @@ const ResearchpaperContent = ({ researchpaper }: ResearchpaperContentProps) => {
             </motion.div>
 
             <motion.div 
-              className="mt-8"
+              className="mt-8 flex space-x-4 items-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.6 }}
             >
               <DownloadButton fileLink={researchpaper.file} />
+              <Button 
+                variant="outline" 
+                className="bg-transparent border-red-500 hover:bg-red-900/20 text-red-500"
+                onClick={() => setShowReportForm(true)}
+              >
+                <AlertTriangle className="mr-2 h-4 w-4" />
+                Report
+              </Button>
             </motion.div>
           </div>
         </div>
       </div>
+      
+      {showReportForm && (
+        <ReportForm 
+          contentId={researchpaper._id} 
+          contentTitle={researchpaper.title}
+          contentType="research"
+          onClose={() => setShowReportForm(false)}
+        />
+      )}
     </div>
   );
 };
