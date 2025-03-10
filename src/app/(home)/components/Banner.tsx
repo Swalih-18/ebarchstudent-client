@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter
-
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Plus, BookOpen } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface StarProps {
   x: number;
@@ -27,13 +27,12 @@ const Star: React.FC<StarProps> = ({ x, y, size, opacity }) => (
 );
 
 const Banner = () => {
-  const router = useRouter(); // Initialize router
-
+  const router = useRouter();
   const [stars, setStars] = useState<StarProps[]>([]);
   const ref = useRef(null);
 
   useEffect(() => {
-    const newStars = Array.from({ length: 100 }, () => ({
+    const newStars = Array.from({ length: 150 }, () => ({
       x: Math.random() * 100,
       y: Math.random() * 100,
       size: Math.random() * 2 + 1,
@@ -45,12 +44,12 @@ const Banner = () => {
   return (
     <section
       ref={ref}
-      className="relative min-h-[80vh] w-full flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
     >
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-900" />
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-lg" />
           {stars.map((star, index) => (
             <Star key={index} {...star} />
           ))}
@@ -58,7 +57,7 @@ const Banner = () => {
         </div>
       </div>
 
-      {/* Floating Elements */}
+      {/* Floating Elements - Added more elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{
@@ -84,6 +83,43 @@ const Banner = () => {
           }}
           className="absolute top-40 right-20 w-6 h-6 bg-pink-400 rounded-full blur-sm"
         />
+        {/* New floating elements */}
+        <motion.div
+          animate={{
+            y: [0, -15, 0],
+            opacity: [0.3, 0.8, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
+          className="absolute bottom-40 left-1/4 w-5 h-5 bg-blue-400 rounded-full blur-sm"
+        />
+        <motion.div
+          animate={{
+            x: [0, 10, 0],
+            opacity: [0.4, 0.9, 0.4],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
+          className="absolute top-1/3 right-1/4 w-7 h-7 bg-purple-500 rounded-full blur-sm"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.5, 0.8, 0.5],
+          }}
+          transition={{
+            duration: 9,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
+          className="absolute top-2/3 left-1/3 w-5 h-5 bg-pink-500 rounded-full blur-sm"
+        />
       </div>
 
       {/* Content */}
@@ -103,30 +139,64 @@ const Banner = () => {
             latest findings and research in your field.
           </p>
 
-          <motion.button
-            onClick={() => { // Add click handler
-              const bookSection = document.getElementById('book-cards');
-              const paperSection = document.getElementById('researchpaper-cards'); // Assuming the book cards section has this ID
-              if (bookSection) {
-                bookSection.scrollIntoView({ behavior: 'smooth' }); // Scroll to book cards section
-              }else{
-                if (paperSection) {
-                  paperSection.scrollIntoView({ behavior: 'smooth' }); // Scroll to research paper cards section
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <motion.button
+              onClick={() => {
+                const bookSection = document.getElementById("book-cards");
+                const paperSection = document.getElementById(
+                  "researchpaper-cards"
+                );
+                if (bookSection) {
+                  bookSection.scrollIntoView({ behavior: "smooth" });
+                } else if (paperSection) {
+                  paperSection.scrollIntoView({ behavior: "smooth" });
                 }
-              }
-            }}
+              }}
+              className="group relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-medium text-white rounded-lg shadow-2xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="absolute inset-0 w-full h-full border border-white rounded-lg opacity-10"></span>
+              <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-5"></span>
+              <span className="relative flex items-center">
+                Discover
+                <ChevronDown className="ml-2 h-4 w-4" />
+              </span>
+            </motion.button>
 
-            className="group relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-medium text-white rounded-lg shadow-2xl"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="absolute inset-0 w-full h-full border border-white rounded-lg opacity-10"></span>
-            <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-5"></span>
-            <span className="relative flex items-center">
-              Discover
-              <ChevronDown className="ml-2 h-4 w-4" />
-            </span>
-          </motion.button>
+            {/* New Request Button with animation */}
+            <motion.button
+              onClick={() => router.push("/request")}
+              className="group relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-medium text-white rounded-lg shadow-lg"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                boxShadow: [
+                  "0px 0px 0px rgba(255,255,255,0.1)",
+                  "0px 0px 8px rgba(255,255,255,0.3)",
+                  "0px 0px 0px rgba(255,255,255,0.1)",
+                ],
+              }}
+              transition={{
+                duration: 0.8,
+                boxShadow: {
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  duration: 2,
+                },
+              }}
+            >
+              <span className="absolute inset-0 w-full h-full border border-white rounded-lg opacity-10"></span>
+              <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-gradient-to-r from-purple-500 to-pink-500 rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
+              <span className="relative flex items-center">
+                Request
+                <Plus className="ml-2 h-4 w-4" />
+              </span>
+            </motion.button>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -41,7 +41,7 @@ const BookContent = ({ book }: BookContentProps) => {
           <div className="flex flex-col space-y-6 md:col-span-8 lg:col-span-9">
             <div className="space-y-4">
               <motion.h1
-                className="bg-gradient-to-r from-gray-500 to-white bg-clip-text text-4xl font-bold text-transparent md:text-5xl lg:text-6xl"
+                className="bg-gradient-to-r from-gray-500 to-white bg-clip-text text-4xl font-bold text-transparent md:text-5xl lg:text-6xl leading-none pb-2"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{

@@ -20,51 +20,7 @@ export const InfiniteMovingCards = ({
   pauseOnHover?: boolean;
   className?: string;
 }) => {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const scrollerRef = React.useRef<HTMLUListElement>(null);
   const [isVisible, setIsVisible] = useState(true);
-
-  // Framer Motion text animation variants
-  const headerVariants = {
-    hidden: {
-      opacity: 0,
-      y: 50,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 200,
-      },
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 200,
-        delayChildren: 0.2,
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const letterVariants = {
-    hidden: {
-      opacity: 0,
-      y: 50,
-      rotate: 10,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      rotate: 0,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 200,
-      },
-    },
-  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -84,21 +40,13 @@ export const InfiniteMovingCards = ({
         {isVisible && (
           <motion.h2
             key="quotes-header"
-            className="text-3xl font-bold text-gray-100 mb-8 text-center flex overflow-hidden"
-            variants={headerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
+            className="text-3xl font-bold text-gray-100 mb-8 text-center"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5 }}
           >
-            {"Quotes".split("").map((char, index) => (
-              <motion.span
-                key={index}
-                variants={letterVariants}
-                className="inline-block"
-              >
-                {char}
-              </motion.span>
-            ))}
+            Quotes
           </motion.h2>
         )}
       </AnimatePresence>
@@ -122,11 +70,7 @@ export const InfiniteMovingCards = ({
         >
           {doubledItems.map((item, idx) => (
             <li
-              className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 px-8 py-6 md:w-[450px]"
-              style={{
-                background:
-                  "linear-gradient(180deg, var(--slate-800), var(--slate-900)",
-              }}
+              className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-gray-700 px-8 py-6 md:w-[450px] backdrop-blur-lg bg-white/10 shadow-lg"
               key={`${item.name}-${idx}`}
             >
               <blockquote>

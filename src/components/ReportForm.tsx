@@ -33,7 +33,7 @@ const ReportForm = ({
     setIsSubmitting(true);
     
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reports`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/report/reports`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
