@@ -70,7 +70,7 @@ export const InfiniteMovingCards = ({
         >
           {doubledItems.map((item, idx) => (
             <li
-              className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-gray-700 px-8 py-6 md:w-[450px] backdrop-blur-lg bg-white/10 shadow-lg"
+              className="w-[800px] max-w-full relative rounded-2xl border border-b-1 flex-shrink-0 border-gray-700 px-8 py-6 md:w-[450px] backdrop-blur-lg bg-black/40 shadow-[0_2px_10px_rgba(128,128,128,0.2)]"
               key={`${item.name}-${idx}`}
             >
               <blockquote>

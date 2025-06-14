@@ -1,13 +1,13 @@
 "use client";
-
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Researchpaper } from "@/types";
 import DownloadButton from "./DownloadButton";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, ChevronLeft } from "lucide-react";
 import ReportForm from "@/components/ReportForm";
+import Link from "next/link";
 
 interface ResearchpaperContentProps {
   researchpaper: Researchpaper;
@@ -15,10 +15,17 @@ interface ResearchpaperContentProps {
 
 const ResearchpaperContent = ({ researchpaper }: ResearchpaperContentProps) => {
   const [showReportForm, setShowReportForm] = useState(false);
-
+  
   return (
     <div className="relative min-h-screen bg-black text-gray-100">
       <div className="mx-auto max-w-7xl px-4 pt-32 pb-16">
+        <Link href="/">
+          <Button variant="link" className="bg-transparent border-gray-700 hover:bg-gray-800/30 text-gray-300 absolute top-20 left-4 z-10">
+            <ChevronLeft className="h-4 w-4" />
+            Back to Home
+          </Button>
+        </Link>
+        
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
           <motion.div
             className="md:col-span-4 lg:col-span-3"
@@ -37,7 +44,6 @@ const ResearchpaperContent = ({ researchpaper }: ResearchpaperContentProps) => {
               />
             </div>
           </motion.div>
-
           <div className="flex flex-col space-y-6 md:col-span-8 lg:col-span-9">
             <div className="space-y-4">
               <motion.h1
@@ -61,7 +67,6 @@ const ResearchpaperContent = ({ researchpaper }: ResearchpaperContentProps) => {
                 by {researchpaper.authorName}
               </motion.p>
             </div>
-
             <motion.div
               className="prose prose-invert max-w-none"
               initial={{ opacity: 0, y: 20 }}
@@ -72,7 +77,6 @@ const ResearchpaperContent = ({ researchpaper }: ResearchpaperContentProps) => {
                 {researchpaper.abstract}
               </p>
             </motion.div>
-
             <motion.div
               className="mt-8 flex space-x-4 items-center"
               initial={{ opacity: 0, y: 20 }}
@@ -85,14 +89,13 @@ const ResearchpaperContent = ({ researchpaper }: ResearchpaperContentProps) => {
                 className="bg-transparent border-red-500 hover:bg-red-900/20 text-red-500"
                 onClick={() => setShowReportForm(true)}
               >
-                <AlertTriangle className="mr-2 h-4 w-4" />
+                <AlertTriangle className="h-4 w-4" />
                 Report
               </Button>
             </motion.div>
           </div>
         </div>
       </div>
-
       {showReportForm && (
         <ReportForm
           contentId={researchpaper._id}
