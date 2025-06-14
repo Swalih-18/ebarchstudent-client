@@ -115,7 +115,7 @@ const Footer = () => {
           </p>
           <p className="text-neutral-400 text-sm mt-2 md:mt-0">
             Made with <Heart size={14} className="inline text-red-500" /> by
-            Ebarch Open Community Team
+            Mohammed Swalih Mp
           </p>
         </div>
       </div>
