@@ -23,24 +23,23 @@
 
 ## About The Project
 
-### Homepage Dashboard
+### Homepage
 <div align="center">
-  <img src="https://placehold.co/800x500/f8fafc/4f46e5?text=Homepage+Dashboard" alt="Homepage Dashboard" width="800">
-  <p><em>Clean and intuitive main dashboard with quick access to search and featured content</em></p>
+  <img src="./public/eba.png" alt="Homepage Dashboard" width="800">
+  <p><em>Clean and intuitive home section with cool animations , search , request features and parallx background</em></p>
 </div>
 
-### Reading Interface
+### Discover
 <div align="center">
-  <img src="https://placehold.co/800x500/f1f5f9/059669?text=Reading+Interface" alt="Reading Interface" width="800">
-  <p><em>Dedicated reading view optimized for comfortable in-browser document consumption</em></p>
+  <img src="./public/eba1.png" alt="Reading Interface" width="800">
+  <p><em>Dedicated discovery of the Books and Research paper educational content</em></p>
 </div>
 
-### Search Results
+### Single Content
 <div align="center">
-  <img src="https://placehold.co/800x500/fef3c7/d97706?text=Search+Results" alt="Search Results" width="800">
-  <p><em>Advanced search results with comprehensive filtering and sorting options</em></p>
+  <img src="./public/eba2.png" alt="Search Results" width="800">
+  <p><em>Advanced search results of the content with download,report content abilities</em></p>
 </div>
-
 
 
 **Ebarch** is a full-stack digital archive platform designed for academic institutions and researchers. The platform provides secure access to academic resources including books, research papers, and educational materials through a modern web interface.
