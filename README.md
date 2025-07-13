@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/Swalih-18/ebarchlib-client">
-    <img src="https://placehold.co/120x120/4f46e5/ffffff?text=EB" alt="Ebarch Logo" width="120" height="120">
+    <img src="public/bookicon-removebg-preview.png" alt="Ebarch Logo" width="120" height="120">
   </a>
   
   <h1 align="center">Ebarch</h1>
